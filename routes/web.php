@@ -2,13 +2,10 @@
 
 use App\Http\Controllers\AcountController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'account'], function () {
 
@@ -29,5 +26,8 @@ Route::group(['prefix' => 'account'], function () {
         Route::get('books', [BookController::class, 'index'])->name('books.index');
         Route::get('books/create', [BookController::class, 'create'])->name('books.create');
         Route::post('books/store', [BookController::class, 'store'])->name('books.store');
+        Route::get('books/edit/{id}', [BookController::class, 'edit'])->name('books.edit');
+        Route::post('books/update/{id}', [BookController::class, 'update'])->name('books.update');
+        Route::delete('books', [BookController::class, 'destroy'])->name('books.destroy');
     });
 });
